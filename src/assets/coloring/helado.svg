@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600"><g fill="#fff" stroke="#000" stroke-width="10" stroke-linejoin="round" stroke-linecap="round">
+<polygon points="318,300 482,300 400,565"/>
+<path d="M337 362 H463 M356 424 H444 M375 486 H425" fill="none"/>
+<circle cx="400" cy="250" r="96"/>
+<path d="M330 300 Q335 340 350 330 Q360 310 372 340 Q385 360 395 335" fill="none"/>
+<circle cx="400" cy="140" r="82"/>
+<rect x="350" y="105" width="24" height="12" rx="6" transform="rotate(-30 362 111)"/>
+<rect x="420" y="95" width="24" height="12" rx="6" transform="rotate(25 432 101)"/>
+<rect x="395" y="160" width="24" height="12" rx="6" transform="rotate(-10 407 166)"/>
+<rect x="340" y="230" width="24" height="12" rx="6" transform="rotate(20 352 236)"/>
+<rect x="430" y="250" width="24" height="12" rx="6" transform="rotate(-25 442 256)"/>
+<path d="M425 52 Q440 25 470 18" fill="none"/>
+<circle cx="420" cy="60" r="25"/>
+</g></svg>

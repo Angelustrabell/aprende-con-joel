@@ -1,0 +1,163 @@
+/* ===== Base: variables, tarjetas, ventanas, avisos y animaciones ===== */
+:root {
+  --kid-font: "Nunito", "Segoe UI Rounded", "Arial Rounded MT Bold", "Segoe UI", system-ui, sans-serif;
+  --ui-font: "Segoe UI", system-ui, -apple-system, sans-serif;
+  --emoji-font: "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif;
+  --purple: #6c4cf5;
+  --purple-d: #4f33cf;
+  --purple-l: #efeaff;
+  --green: #2ecc71;
+  --green-d: #1f9f55;
+  --red: #ff5a5f;
+  --red-d: #d63c41;
+  --yellow: #ffd23f;
+  --orange: #ff9f1c;
+  --orange-d: #d9790a;
+  --blue: #2ec4ff;
+  --pink: #ff6fb5;
+  --ink: #2b2350;
+  --muted: #7a7398;
+  --line: #e6e3f3;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body {
+  font-family: var(--ui-font);
+  color: var(--ink);
+  background: #8fd3ff;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+#app { position: fixed; inset: 0; }
+#app.adult { overflow: auto; background: #f4f5fb; }
+#app.kid { overflow: hidden; user-select: none; -webkit-user-select: none; font-family: var(--kid-font); }
+button { font-family: inherit; cursor: pointer; color: inherit; }
+button:disabled { cursor: default; opacity: .45; }
+img { -webkit-user-drag: none; }
+.hidden { display: none !important; }
+.invisible { visibility: hidden; }
+
+#fx-canvas { position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 9000; }
+
+.boot { position: fixed; inset: 0; display: grid; place-items: center; background: linear-gradient(#7cc8ff, #e6fbcf); }
+.boot-star { font-size: 18vmin; font-family: var(--emoji-font); animation: spin 2.4s linear infinite; }
+.fatal { position: absolute; inset: 20px; background: #fff; color: #b00020; padding: 20px; overflow: auto; border-radius: 12px; white-space: pre-wrap; font: 13px/1.4 Consolas, monospace; }
+
+/* ===== Tarjeta (pieza de contenido) ===== */
+.cardv {
+  position: relative;
+  container-type: size;
+  width: 100px;
+  height: 100px;
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border: none;
+  border-radius: 18%;
+  padding: 0;
+  overflow: hidden;
+  color: var(--ink);
+  box-shadow: 0 4px 0 rgba(30, 20, 80, .13), 0 8px 18px rgba(40, 30, 90, .14);
+  font-family: var(--kid-font);
+}
+button.cardv { cursor: pointer; }
+.cv-emoji { font-family: var(--emoji-font); font-size: 64cqmin; line-height: 1; pointer-events: none; }
+.cardv.with-caption .cv-emoji { font-size: 50cqmin; margin-top: -14cqmin; }
+.cv-img { width: 100%; height: 100%; object-fit: contain; padding: 7cqmin; pointer-events: none; }
+.cardv.with-caption .cv-img { height: 78%; padding-bottom: 0; margin-top: -8cqmin; }
+.cv-caption {
+  position: absolute; left: 4cqmin; right: 4cqmin; bottom: 5cqmin;
+  text-align: center; font-weight: 900; font-size: 14cqmin; line-height: 1.05;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; pointer-events: none;
+}
+.cv-text { font-weight: 900; line-height: 1.02; text-align: center; padding: 0 5cqmin; overflow-wrap: anywhere; pointer-events: none; }
+.cv-text.len-1 { font-size: 64cqmin; }
+.cv-text.len-2 { font-size: 40cqmin; }
+.cv-text.len-3 { font-size: 25cqmin; }
+.cv-text.len-4 { font-size: 16cqmin; }
+.cardv.has-color { background: var(--card-color); box-shadow: inset 0 0 0 3px rgba(0, 0, 0, .08), 0 4px 0 rgba(30, 20, 80, .13), 0 8px 18px rgba(40, 30, 90, .14); }
+.cardv.has-color .cv-text, .cardv.has-color .cv-caption { color: #fff; text-shadow: 0 0 6px rgba(0, 0, 0, .45), 0 2px 0 rgba(0, 0, 0, .3); }
+.cardv.is-empty { background: #f6f4ff; box-shadow: inset 0 0 0 3px #d9d1fb; }
+.cv-empty { font-size: 40cqmin; color: #bdb2f2; }
+.cardv.thumb { border-radius: 22%; box-shadow: 0 1px 3px rgba(0, 0, 0, .18); }
+
+/* ===== Ventanas emergentes ===== */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 5000;
+  background: rgba(30, 22, 70, .45);
+  display: grid; place-items: center; padding: 20px;
+  animation: fadeIn .15s ease;
+}
+.modal-overlay.closing { animation: fadeOut .15s ease forwards; }
+.modal {
+  background: #fff; border-radius: 18px; width: min(560px, 100%); max-height: calc(100vh - 40px);
+  display: flex; flex-direction: column; box-shadow: 0 20px 60px rgba(20, 10, 60, .35);
+  font-family: var(--ui-font); color: var(--ink); user-select: text;
+  animation: modalIn .18s ease;
+}
+.modal.wide { width: min(1040px, 100%); }
+.modal-title { font-size: 20px; font-weight: 800; padding: 18px 22px 6px; }
+.modal-body { padding: 10px 22px 16px; overflow: auto; }
+.modal-actions { display: flex; justify-content: flex-end; gap: 10px; padding: 12px 22px 18px; border-top: 1px solid var(--line); }
+.confirm-text { font-size: 16px; line-height: 1.5; margin: 6px 0; }
+.kid-modal { font-family: var(--kid-font); }
+.kid-modal .modal-title { font-size: 30px; text-align: center; }
+
+.busy { display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 26px; text-align: center; }
+.spinner { width: 46px; height: 46px; border-radius: 50%; border: 5px solid var(--purple-l); border-top-color: var(--purple); animation: spin .9s linear infinite; }
+
+/* ===== Avisos ===== */
+#toast-root { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); z-index: 9800; display: flex; flex-direction: column; gap: 8px; align-items: center; pointer-events: none; }
+.toast {
+  background: #2b2350; color: #fff; padding: 12px 20px; border-radius: 999px; font: 600 15px var(--ui-font);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .25); animation: toastIn .25s ease; transition: opacity .4s, transform .4s;
+}
+.toast-ok { background: #1f9f55; }
+.toast-error { background: #d63c41; }
+.toast.out { opacity: 0; transform: translateY(10px); }
+
+/* ===== Efectos ===== */
+.burst {
+  position: fixed; z-index: 9500; font-size: 34px; font-family: var(--emoji-font); pointer-events: none;
+  transform: translate(-50%, -50%); animation: burst .9s ease-out forwards;
+}
+.fly-star {
+  position: fixed; z-index: 9500; font-size: 52px; margin: -26px 0 0 -26px; font-family: var(--emoji-font); pointer-events: none;
+  transition: transform .8s cubic-bezier(.5, -0.4, .5, 1), opacity .8s;
+}
+
+/* ===== Animaciones ===== */
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes fadeIn { from { opacity: 0; } }
+@keyframes fadeOut { to { opacity: 0; } }
+@keyframes modalIn { from { transform: translateY(14px) scale(.98); opacity: 0; } }
+@keyframes toastIn { from { transform: translateY(14px); opacity: 0; } }
+@keyframes burst {
+  0% { transform: translate(-50%, -50%) scale(.3); opacity: 1; }
+  100% { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.25); opacity: 0; }
+}
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-9%) rotate(-4deg); }
+  40% { transform: translateX(9%) rotate(4deg); }
+  60% { transform: translateX(-6%) rotate(-2deg); }
+  80% { transform: translateX(5%); }
+}
+@keyframes bounce { 0%, 100% { transform: scale(1); } 30% { transform: scale(1.16); } 60% { transform: scale(.95); } }
+@keyframes pop { 0% { transform: scale(.5); opacity: 0; } 70% { transform: scale(1.08); opacity: 1; } 100% { transform: scale(1); } }
+@keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.07); } }
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4%); } }
+@keyframes glow { 0%, 100% { filter: drop-shadow(0 0 0 rgba(255, 210, 63, 0)); } 50% { filter: drop-shadow(0 0 2.2vmin rgba(255, 230, 120, 1)); } }
+@keyframes wiggle { 0%, 100% { transform: rotate(0); } 25% { transform: rotate(-8deg); } 75% { transform: rotate(8deg); } }
+@keyframes happyJump { 0%, 100% { transform: translateY(0) scale(1); } 30% { transform: translateY(-18%) scale(1.06, .96); } 55% { transform: translateY(0) scale(1.08, .92); } 75% { transform: translateY(-6%); } }
+@keyframes sad { 0%, 100% { transform: rotate(0); } 30% { transform: rotate(-10deg) translateY(4%); } 70% { transform: rotate(6deg) translateY(4%); } }
+@keyframes talk { 0%, 100% { transform: scale(1); } 25% { transform: scale(1.05, .96); } 50% { transform: scale(.97, 1.04); } 75% { transform: scale(1.04, .97); } }
+@keyframes ring { 0% { box-shadow: 0 0 0 0 rgba(255, 159, 28, .7); } 100% { box-shadow: 0 0 0 4vmin rgba(255, 159, 28, 0); } }
+
+.shake { animation: shake .5s ease; }
+.bounce { animation: bounce .5s ease; }
+.pop { animation: pop .35s ease; }

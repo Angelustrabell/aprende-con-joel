@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600"><g fill="#fff" stroke="#000" stroke-width="10" stroke-linejoin="round" stroke-linecap="round"><polygon transform="rotate(0 400 300)" points="400,38 432,122 368,122"/><polygon transform="rotate(45 400 300)" points="400,38 432,122 368,122"/><polygon transform="rotate(90 400 300)" points="400,38 432,122 368,122"/><polygon transform="rotate(135 400 300)" points="400,38 432,122 368,122"/><polygon transform="rotate(180 400 300)" points="400,38 432,122 368,122"/><polygon transform="rotate(225 400 300)" points="400,38 432,122 368,122"/><polygon transform="rotate(270 400 300)" points="400,38 432,122 368,122"/><polygon transform="rotate(315 400 300)" points="400,38 432,122 368,122"/>
+<circle cx="400" cy="300" r="150"/>
+<circle cx="318" cy="338" r="24"/><circle cx="482" cy="338" r="24"/>
+<circle cx="350" cy="270" r="17" fill="#000"/><circle cx="450" cy="270" r="17" fill="#000"/>
+<path d="M335 345 Q400 415 465 345" fill="none"/>
+</g></svg>
